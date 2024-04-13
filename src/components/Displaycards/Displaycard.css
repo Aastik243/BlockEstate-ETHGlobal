@@ -1,0 +1,21 @@
+.card:hover {
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+
+}
+
+.card-img-top:hover {
+    scale: 1.05;
+    transition: 300ms ease-in-out;
+
+}
+
+.card {
+    margin: 20px 25px
+}
+
+.card-text {
+    font-size: 15px;
+    text-decoration: none;
+}
