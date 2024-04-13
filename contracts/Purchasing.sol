@@ -20,7 +20,6 @@ contract RentToOwn is PropertyRegistry{
         uint amount
     );
 
-cd ..
 
     function RentProperty(uint256 property_index, uint256 numberofyears) public{
         require(properties[property_index].owned == false, "Property is already occupied");
