@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
         try {
             if (!window.ethereum) return console.log("Install Metamask");
             const accounts = await window.ethereum.request({
-                method: "eth_requestaccounts",
+                method: "eth_requestAccounts",
             });
             if (accounts.length) {
                 setCurrentAccount(accounts[0]);
@@ -29,7 +29,8 @@ export const AuthContextProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 checkIfWalletConnected,
-                currentAccount,
+                currentAccount
+                
             }}
         >
             {children}
