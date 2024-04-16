@@ -2,9 +2,10 @@
 pragma solidity ^0.8.19;
 
 import "./propertyRegistry.sol";
-import { ISP } from "@ethsign/sign-protocol-evm/src/interfaces/ISP.sol";
-import { Ownable } from "openzeppelin/contracts/access/Ownable"; 
-import { Attestation } from "@ethsign/sign-protocol-evm/src/models/Attestation.sol";
+import { ISP } from "../lib/sign-protocol-evm/src/interfaces/ISP.sol";
+import { Ownable } from "../lib/openzeppelin-contracts/contracts/access/Ownable.sol"; 
+import { Attestation } from "../lib/sign-protocol-evm/src/models/Attestation.sol";
+import { DataLocation } from "../lib/sign-protocol-evm/src/models/DataLocation.sol";
 
 contract RentToOwn is PropertyRegistry, Ownable{
 
@@ -24,24 +25,44 @@ contract RentToOwn is PropertyRegistry, Ownable{
     uint256 public SECONDS_IN_MONTH = 2629056;
     uint256 public cancellationPenalty = 5; // cancellation penalty in percentage
 
-    mapping(uint256=>address) public tenant;
-    mapping(uint256=>uint256) public numberOfYears;
-    mapping(uint256=>uint256) public monthlyemi;
-    mapping(uint256=>uint256) public totalPaid;
-    mapping(uint256=>uint256) public numberOfPayments;
-    mapping(uint256=>uint256) public lastPayment;
-
-      event PaymentMade(
+    mapping(uint256 a =>address b) public tenant;
+    mapping(uint256 a =>uint256 b) public numberOfYears;
+    mapping(uint256 a =>uint256 b) public monthlyemi;
+    mapping(uint256 a =>uint256 b) public totalPaid;
+    mapping(uint256 a =>uint256 b) public numberOfPayments;
+    mapping(uint256 a =>uint256 b) public lastPayment;
+    mapping(uint256 a =>bool b) public buyintention;
+ 
+    event PaymentMade(
         address from,
-        uint amount
+        uint256 amount
     );
 
-    function RentProperty(uint256 property_index, uint256 numberofyears) external{
+    event OwnershipTransferred(address previousOwner, address newOwner);
+
+    event RentAdjusted(uint256 propertyIndex, uint256 newRentAmount);
+
+    event AgreementCancelled(uint256 propertyIndex, address canceller);
+
+
+
+    event TenantApproved(address landlord, address tenant, uint64 attestationid);
+
+    function RentProperty(uint256 property_index, uint256 numberofyears, bool _buyintention) external{
         require(properties[property_index].owned == false, "Property is already occupied");
+
+        if(_buyintention==false){
+            tenantLandlordAgreement[msg.sender]=properties[property_index].owner;
+            buyintention[property_id]=false;
+
+        }
+        else{
         require(numberOfYears[property_index]<=8, "Number of years can't be more than 8");
                 numberOfYears[property_index]=numberofyears;
+                buyintention[property_index]=true;
 
         tenantLandlordAgreement[msg.sender]=properties[property_index].owner;
+        }
 
        
 
@@ -57,16 +78,22 @@ contract RentToOwn is PropertyRegistry, Ownable{
         tenant[property_index]=_tenant;
         properties[property_index].owned == true;
         numberOfPayments[property_index]=0;
-        if(numberofyears<=3){
+
+        if(buyintention[property_index]==false){
+            monthlyemi[property_index]=0;
+        }
+        else{
+        if(numberOfYears[property_index]<=3){
             monthlyemi[property_index]=(110*properties[property_index].price)/(100*numberOfYears[property_index]*12);
         }
-        else if(numberofyears>3 && numberofyears<6 ){
+        else if(numberOfYears[property_index]>3 && numberOfYears[property_index]<6 ){
             monthlyemi[property_index]=(115*properties[property_index].price)/(100*numberOfYears[property_index]*12);
 
         }
         else{
             monthlyemi[property_index]=(120*properties[property_index].price)/(100*numberOfYears[property_index]*12);
 
+        }
         }
 
         Attestation memory a = Attestation({
@@ -76,14 +103,18 @@ contract RentToOwn is PropertyRegistry, Ownable{
             revokeTimestamp: 0,
             attester: address(this),
             validUntil: 0,
-            dataLocation: 0,
+            dataLocation: DataLocation.ONCHAIN,
             revoked: false,
             recipients: recipients,
             data: ""
 
         });
 
-        return spInstance.attest(a,"","","");
+        uint64 attestationID = spInstance.attest(a,"","","");
+
+        emit TenantApproved(msg.sender, tenant[property_index], attestationID);
+
+        return attestationID;
 
 
 
@@ -119,11 +150,28 @@ contract RentToOwn is PropertyRegistry, Ownable{
         totalPaid[property_index] += monthlyemi[property_index];
         numberOfPayments[property_index] += 1;
 
-        payable(properties[property_index].owner).transfer(properties[property_index].rent + monthlyemi[property_index]);
+    payable(properties[property_index].owner).transfer(properties[property_index].rent + monthlyemi[property_index]);
         
         lastPayment[property_index] = block.timestamp;
-        
+
         emit PaymentMade(msg.sender, properties[property_index].rent + monthlyemi[property_index]);
+
+
+        if(numberOfPayments[property_index]==numberOfYears[property_index]*12 && buyintention[property_index]==1){
+
+            address prevowner=properties[property_index].owner;
+
+            properties[property_index].owner=msg.sender;
+            totalPaid[property_index] = 0;
+            numberOfPayments[property_index] = 0;
+            properties[property_index].owned = false;
+
+            emit OwnershipTransfer(prevowner,msg.sender);
+
+            
+
+        }
+        
     }
 
     function adjustRent(uint256 _newRentAmount, uint256 property_index ) public {
@@ -137,8 +185,11 @@ contract RentToOwn is PropertyRegistry, Ownable{
             _newRentAmount <= properties[property_index].rent * 110 / 100,
             "Cannot increase rent by more than 10%."
         );
+
         
         properties[property_index].rent = _newRentAmount;
+
+        emit RentAdjusted(property_index, _newRentAmount);
     }
 
     function cancelAgreement(uint256 property_index) public {
@@ -158,6 +209,8 @@ contract RentToOwn is PropertyRegistry, Ownable{
         totalPaid[property_index] = 0;
         numberOfPayments[property_index] = 0;
         properties[property_index].owned= false;
+
+        emit AgreementCancelled(property_index, msg.sender);
     }
 
  
@@ -182,12 +235,14 @@ contract RentToOwn is PropertyRegistry, Ownable{
         uint refundAmount = totalPaid[property_index] * (100 - cancellationPenalty) / 100;
 
         // Return the refund amount to the tenant
-    payable(tenant[property_index]).transfer(refundAmount);
+        payable(tenant[property_index]).transfer(refundAmount);
 
         // Reset the state of the contract
         totalPaid[property_index] = 0;
         numberOfPayments[property_index] = 0;
         properties[property_index].owned = false;
+
+        emit AgreementCancelled(property_index, msg.sender);
     }
 
 
@@ -200,8 +255,26 @@ contract RentToOwn is PropertyRegistry, Ownable{
     function setSchemaId(uint64 _schemId) external onlyOwner{
         schemaId=_schemId;
     }
-    
 
+    function getTenant(uint256 propertyIndex) external view returns (address) {
+    return tenant[propertyIndex];
+    }
 
-    
+    function getTotalPaid(uint256 propertyIndex) external view returns (uint256) {
+    return totalPaid[propertyIndex];
+    }
+
+   function getNumberOfPayments(uint256 propertyIndex) external view returns (uint256) {
+    return numberOfPayments[propertyIndex];
+    }
+
+    function getLastPayment(uint256 propertyIndex) external view returns (uint256) {
+    return lastPayment[propertyIndex];
+    }
+
 }
+
+    
+
+
+    

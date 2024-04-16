@@ -19,6 +19,24 @@ contract PropertyRegistry {
         bool owned;    }
 
     Property[] public properties;
+
+    event propertyAdded(
+        string name,
+        string location,
+        uint256 price,
+        uint256 carpet_area,
+        uint256 bhk,
+        bool furnished,
+        uint rent,
+        string[] amenities,
+        string[] images,
+        uint256 owner_contact,
+        uint256 propertyindex,
+        address indexed owner,
+        bool owned
+
+    );
+
     
     function registerProperty(
         string memory _name,
@@ -51,10 +69,26 @@ contract PropertyRegistry {
 
         properties.push(newProperty);
         property_index++;
+
+        emit propertyAdded(
+        _name,
+        _location,
+        _price,
+        _carpet_area,
+        _bhk,
+        _furnished,
+        _rent,
+        _amenities,
+        _images,
+        _owner_contact,
+        property_index-1,
+        msg.sender,
+        false);
     }
 
     function getPropertiesCount() public view returns (uint256) {
         return properties.length;
+
     }
 
     function getProperty(uint256 _index)
@@ -76,16 +110,9 @@ contract PropertyRegistry {
         )
     {
         Property storage property = properties[_index];
-        return (property.name, property.location, property.price, property.carpet_area, property.bhk, property.furnished, property.rent, property.amenities, property.images, property.owner_contact, property.owner);
+        return (property.name, property.location, property.price, property.carpet_area, property.bhk,
+         property.furnished, property.rent, property.amenities, property.images, property.owner_contact,
+          property.owner);
     }
 
-    // function buyProperty(uint256 _index, uint256 _share) public payable {
-    //     require(msg.value == properties[_index].price, "Invalid amount");
-    //     require(_share <= MAX_PROPERTIES_SHARE, "Invalid share");
-    //     require(property_share[msg.sender][_index] == 0, "Already bought");
-    //     property_share[msg.sender][_index] = _share;
-    //     property_holders[_index].push(msg.sender);
-
-    
-    // }
 }
