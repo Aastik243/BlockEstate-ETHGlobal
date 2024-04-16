@@ -2,8 +2,24 @@
 pragma solidity ^0.8.19;
 
 import "./propertyRegistry.sol";
+import { ISP } from "@ethsign/sign-protocol-evm/src/interfaces/ISP.sol";
+import { Ownable } from "openzeppelin/contracts/access/Ownable"; 
+import { Attestation } from "@ethsign/sign-protocol-evm/src/models/Attestation.sol";
 
-contract RentToOwn is PropertyRegistry{
+contract RentToOwn is PropertyRegistry, Ownable{
+
+
+
+    ISP public spInstance;
+    uint64 public schemaId;
+    mapping(address tenant=>address landlord) public tenantLandlordAgreement;
+
+    error ConfirmationAddressMismatch();
+
+    constructor() Ownable(msg.sender){ }
+
+
+
 
     uint256 public SECONDS_IN_MONTH = 2629056;
     uint256 public cancellationPenalty = 5; // cancellation penalty in percentage
@@ -20,23 +36,61 @@ contract RentToOwn is PropertyRegistry{
         uint amount
     );
 
-    function RentProperty(uint256 property_index, uint256 numberofyears) public{
+    function RentProperty(uint256 property_index, uint256 numberofyears) external{
         require(properties[property_index].owned == false, "Property is already occupied");
         require(numberOfYears[property_index]<=8, "Number of years can't be more than 8");
-        tenant[property_index]=msg.sender;
+                numberOfYears[property_index]=numberofyears;
+
+        tenantLandlordAgreement[msg.sender]=properties[property_index].owner;
+
+       
+
+    }
+
+    function ApproveTenant(uint256 property_index, address _tenant) external returns (uint64){
+        bytes[] memory recipients = new bytes[](2);
+        recipients[0]= abi.encode(_tenant);
+        recipients[1]= abi.encode(msg.sender);
+        
+        if(tenantLandlordAgreement[_tenant]== msg.sender){
+
+        tenant[property_index]=_tenant;
         properties[property_index].owned == true;
-        numberOfYears[property_index]=numberofyears;
         numberOfPayments[property_index]=0;
         if(numberofyears<=3){
-            monthlyemi[property_index]=(110*properties[property_index].price)/(100*numberofyears*12);
+            monthlyemi[property_index]=(110*properties[property_index].price)/(100*numberOfYears[property_index]*12);
         }
         else if(numberofyears>3 && numberofyears<6 ){
-            monthlyemi[property_index]=(115*properties[property_index].price)/(100*numberofyears*12);
+            monthlyemi[property_index]=(115*properties[property_index].price)/(100*numberOfYears[property_index]*12);
 
         }
         else{
-            monthlyemi[property_index]=(120*properties[property_index].price)/(100*numberofyears*12);
+            monthlyemi[property_index]=(120*properties[property_index].price)/(100*numberOfYears[property_index]*12);
 
+        }
+
+        Attestation memory a = Attestation({
+            schemaId: schemaId,
+            linkedAttestationId: 0,
+            attestTimestamp: 0,
+            revokeTimestamp: 0,
+            attester: address(this),
+            validUntil: 0,
+            dataLocation: 0,
+            revoked: false,
+            recipients: recipients,
+            data: ""
+
+        });
+
+        return spInstance.attest(a,"","","");
+
+
+
+
+        }
+        else{
+            revert ConfirmationAddressMismatch();
         }
 
     }
@@ -134,6 +188,17 @@ contract RentToOwn is PropertyRegistry{
         totalPaid[property_index] = 0;
         numberOfPayments[property_index] = 0;
         properties[property_index].owned = false;
+    }
+
+
+
+    function setSPInstance(address instance) external onlyOwner{
+        spInstance=ISP(instance);
+    }
+
+
+    function setSchemaId(uint64 _schemId) external onlyOwner{
+        schemaId=_schemId;
     }
     
 

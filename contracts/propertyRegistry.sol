@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 contract PropertyRegistry {
-    uint256 private property_index=0;
+    uint256 public property_index=0;
     struct Property {
         string name;
         string location;

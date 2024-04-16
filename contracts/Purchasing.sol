@@ -3,6 +3,7 @@ pragma solidity ^0.8.19;
 
 import "./propertyRegistry.sol";
 
+
 contract RentToOwn is PropertyRegistry{
 
     uint256 public SECONDS_IN_MONTH = 2629056;
