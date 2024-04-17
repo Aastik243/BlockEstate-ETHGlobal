@@ -38,7 +38,7 @@ contract RentToOwn is PropertyRegistry, Ownable{
         uint256 amount
     );
 
-    event OwnershipTransferred(address previousOwner, address newOwner);
+    event OwnershipTransferredtoTenant(address previousOwner, address newOwner);
 
     event RentAdjusted(uint256 propertyIndex, uint256 newRentAmount);
 
@@ -53,7 +53,7 @@ contract RentToOwn is PropertyRegistry, Ownable{
 
         if(_buyintention==false){
             tenantLandlordAgreement[msg.sender]=properties[property_index].owner;
-            buyintention[property_id]=false;
+            buyintention[property_index]=false;
 
         }
         else{
@@ -157,7 +157,7 @@ contract RentToOwn is PropertyRegistry, Ownable{
         emit PaymentMade(msg.sender, properties[property_index].rent + monthlyemi[property_index]);
 
 
-        if(numberOfPayments[property_index]==numberOfYears[property_index]*12 && buyintention[property_index]==1){
+        if(numberOfPayments[property_index]==numberOfYears[property_index]*12 && buyintention[property_index]){
 
             address prevowner=properties[property_index].owner;
 
@@ -166,7 +166,7 @@ contract RentToOwn is PropertyRegistry, Ownable{
             numberOfPayments[property_index] = 0;
             properties[property_index].owned = false;
 
-            emit OwnershipTransfer(prevowner,msg.sender);
+            emit OwnershipTransferredtoTenant(prevowner,msg.sender);
 
             
 
