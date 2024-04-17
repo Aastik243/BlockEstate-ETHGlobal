@@ -5,15 +5,16 @@ import { AuthContextProvider } from "./context/AuthContext";
 import ConnectWallet from "./components/ConnectWalletButton/ConnectWallet";
 import Displaycards from "./components/Displaycards/Displaycard";
 import Footer from "./components/Footer/Footer";
+import HeroSectionText from "./components/HeroSectionText/HeroSectionText";
+import HouseCarousel from "./components/HouseCarousel/HouseCarousel";
+import FeaturedSpace from "./components/FeaturedSpaces/FeaturedSpace";
+import HomePage from "./pages/Homepage/HomePage";
 
 function App() {
   return (
-    <>
-      <Navbar />
-      {/* <ConnectWallet /> */}
-      <Displaycards />
-      <Footer />
-    </>
+    <div className="App">
+      <HomePage />
+    </div>
   );
 }
 

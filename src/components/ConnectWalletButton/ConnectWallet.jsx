@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useAuth } from "../../context/AuthContext";
+import "./ConnectWallet.css";
 const ConnectWallet = () => {
-    const { checkIfWalletConnected, currentAccount} = useAuth();
-    const walletconnect="Connect Wallet";
+    const { checkIfWalletConnected, currentAccount } = useAuth();
+    const walletconnect = "Connect Wallet";
 
     return (
         <div className='connect-button'>
-            <button onClick={checkIfWalletConnected} className="btn btn-primary">{currentAccount ? currentAccount : walletconnect}</button>
+            <button onClick={checkIfWalletConnected} className="btn connect-button">{currentAccount ? currentAccount : walletconnect}</button>
         </div>
     )
 }

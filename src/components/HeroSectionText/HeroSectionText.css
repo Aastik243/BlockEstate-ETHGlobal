@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+.hero-text {
+    background-color: #bae5f3;
+    font-family: poppins;
+
+
+}
+
+.section-text-1 {
+    font-size: 60px;
+    font-weight: 1000;
+    text-shadow: 2px 2px rgb(0, 0, 0, 25%);
+    margin-top: 50px;
+}
+
+.section-text-1>span {
+    color: #127782;
+}
+
+.section-text-2 {
+    margin-top: 20px;
+    font-size: 15px;
+    width: 350px;
+    font-color: #000000;
+    margin-top: 50px;
+}
+
+.section-buttons {
+    margin-top: 15px;
+}
+
+.btn-1 {
+    background-color: #127782;
+    color: white;
+    font-family: poppins;
+    border-radius: 20px;
+    transition: 300ms ease-in-out;
+}
+
+.btn-1:hover {
+    background-color: #bae5f3;
+    color: black;
+    border: 1px solid black;
+
+}
+
+.btn-2 {
+    background-color: #bae5f3;
+    font-family: poppins;
+    border-radius: 20px;
+    border: 1px solid black;
+    transition: 300ms ease-in-out;
+
+}
+
+.btn-2:hover {
+    background-color: #127782;
+    color: white;
+    font-family: poppins;
+    border-radius: 20px;
+
+}

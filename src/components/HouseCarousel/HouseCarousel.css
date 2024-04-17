@@ -1,0 +1,31 @@
+.House-section>img {
+    width: 85vw;
+    height: 80vh;
+    object-fit: cover;
+    border-radius: 20px;
+
+}
+
+.House-section {
+    box-shadow: 10px 10px 10px gray;
+    border-radius: 20px;
+    margin-top: 50px;
+    position: relative;
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+.House-section:hover {
+    cursor: pointer;
+}
+
+.search {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+
+.search>img {
+    width: 250px;
+    height: 250px;
+}

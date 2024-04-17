@@ -1,22 +1,38 @@
 import React from 'react'
 import propertyimage from '../../assets/propertyimage.jpg'
 import './Displaycard.css'
+import Carpetarea from '../../assets/carpetarea.png'
+import bhk from '../../assets/BHK.png'
 import { Link, BrowserRouter } from 'react-router-dom'
-const Displaycards = ({ price, carpetarea, BHK, image }) => {
+const Displaycards = () => {
     return (
         <>
             <BrowserRouter>
                 <Link href="/">
-                    <div className="card" style={{ "width": "18rem" }}>
-                        <img className="card-img-top" src={propertyimage} alt="Card image cap" />
+
+                    <div className="card" style={{ "width": "21rem" }}>
+                        <img className="card-img-top container " src={propertyimage} alt="Card image cap" />
                         <div className="card-body">
-                            <div className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</div>
-                            <div className="furnished"></div>
-                            <div className="carpet-area"></div>
-                            <div className="BHK"></div>
-                            <div className="price"></div>
+                            <div className="card-text description">Oceanic Heights -
+                                Luxury Seaview Apartment</div>
+                            <div className="location" style={{ "font-size": "18px", "fontFamily": "poppins", "marginTop": "10px", "fontWeight": "100" }}>
+                                Bandra West, Mumbai
+                            </div>
+                            <div className="amenities d-flex justify-content-between" style={{ "marginTop": "5px" }}>
+                                <div className="carpet-area" style={{ "color": "#888888" }} >
+                                    <img src={Carpetarea} alt="" />
+                                    <span style={{ "fontSize": "15px" }}>1800 Sqft.</span>
+                                </div>
+                                <div className="BHK" style={{ "color": "#888888" }} >
+                                    <img src={bhk} alt="" />
+                                    <span style={{ "fontSize": "15px" }}>3 BHK</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+
+
                 </Link>
             </BrowserRouter>
 

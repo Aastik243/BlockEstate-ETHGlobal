@@ -1,8 +1,14 @@
 .footer {
-    padding-left: 60px;
+    margin-right: 0;
+    padding-left: 80px;
 }
 
 .footer-bottom {
     justify-content: center;
     text-align: center;
+}
+
+.footer-div {
+    background-color: #127882;
+    color: white
 }
