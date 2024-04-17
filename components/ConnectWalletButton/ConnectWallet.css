@@ -1,0 +1,10 @@
+.connect-button {
+    border-radius: 20px;
+    border: 1px solid #127782;
+    color: black
+}
+
+.connect-button:hover {
+    background-color: #127782;
+    color: white;
+}
