@@ -1,0 +1,19 @@
+.whyus {
+    justify-content: center;
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+.whyus>img:hover {
+    cursor: pointer;
+}
+
+.whyus>img {
+    width: 80%;
+    height: 50%
+}
+
+.procedure {
+    justify-content: center;
+    margin-bottom: 150px;
+}
