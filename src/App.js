@@ -5,15 +5,14 @@ import { AuthContextProvider } from "./context/AuthContext";
 import ConnectWallet from "./components/ConnectWalletButton/ConnectWallet";
 import Displaycards from "./components/Displaycards/Displaycard";
 import Footer from "./components/Footer/Footer";
+import UploadFile from "./components/UploadFile/UploadFile";
+import Propertypage from "./pages/PropertyPage/Propertypage";
 
 function App() {
   return (
-    <>
-      <Navbar />
-      {/* <ConnectWallet /> */}
-      <Displaycards />
-      <Footer />
-    </>
+    <div className="App">
+      <Propertypage/> 
+    </div>
   );
 }
 
