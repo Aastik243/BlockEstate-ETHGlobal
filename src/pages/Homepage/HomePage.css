@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .whyus {
     justify-content: center;
     margin-top: 150px;
@@ -17,24 +16,4 @@
 .procedure {
     justify-content: center;
     margin-bottom: 150px;
-=======
-.whyus {
-    justify-content: center;
-    margin-top: 150px;
-    margin-bottom: 150px;
-}
-
-.whyus>img:hover {
-    cursor: pointer;
-}
-
-.whyus>img {
-    width: 80%;
-    height: 50%
-}
-
-.procedure {
-    justify-content: center;
-    margin-bottom: 150px;
->>>>>>> 57ec83fdd9dd2a4e74887e10a54e4dde9b51e438
 }

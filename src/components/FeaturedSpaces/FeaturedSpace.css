@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .properties {
     flex-wrap: wrap;
     justify-content: center;
@@ -12,19 +11,4 @@
     text-decoration: underline;
     font-style: italic;
     line-spacing: 1.5;
-=======
-.properties {
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 35px;
-}
-
-.head-text-featurespace {
-    font-size: 60px;
-    color: #127782;
-    font-weight: 700;
-    text-decoration: underline;
-    font-style: italic;
-    line-spacing: 1.5;
->>>>>>> 57ec83fdd9dd2a4e74887e10a54e4dde9b51e438
 }
