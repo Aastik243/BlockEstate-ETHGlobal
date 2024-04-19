@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .connect-button {
     border-radius: 20px;
     border: 1px solid #127782;
@@ -7,4 +8,15 @@
 .connect-button:hover {
     background-color: #127782;
     color: white;
+=======
+.connect-button {
+    border-radius: 20px;
+    border: 1px solid #127782;
+    color: black
+}
+
+.connect-button:hover {
+    background-color: #127782;
+    color: white;
+>>>>>>> 57ec83fdd9dd2a4e74887e10a54e4dde9b51e438
 }

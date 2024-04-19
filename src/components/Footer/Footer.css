@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .footer {
     margin-right: 0;
     padding-left: 80px;
@@ -11,4 +12,19 @@
 .footer-div {
     background-color: #127882;
     color: white
+=======
+.footer {
+    margin-right: 0;
+    padding-left: 80px;
+}
+
+.footer-bottom {
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-div {
+    background-color: #127882;
+    color: white
+>>>>>>> 57ec83fdd9dd2a4e74887e10a54e4dde9b51e438
 }
