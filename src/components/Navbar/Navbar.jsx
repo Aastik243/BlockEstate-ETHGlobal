@@ -18,8 +18,8 @@ const Navbar = () => {
                     </div>
                     <div className="navbar__menu d-flex">
                         <div className="nav-route-parent d-flex">
-                            <a href="/"><div className='nav-route'>List</div></a>
-                            <a href="/about"><div className='nav-route'>Rent</div></a>
+                            <a href="/"><div className='nav-route d-flex'>List</div></a>
+                            <a href="/about"><div className='nav-route d-flex'>Rent</div></a>
                         </div>
                         <div className="navbar__button">
                             <ConnectWallet />

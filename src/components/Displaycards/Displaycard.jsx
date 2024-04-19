@@ -13,7 +13,7 @@ const Displaycards = () => {
                     <div className="card" style={{ "width": "21rem" }}>
                         <img className="card-img-top container " src={propertyimage} alt="Card image cap" />
                         <div className="card-body">
-                            /home/priyanshu/rent2own/BlockEstate-ETHGlobal/pages/Homepage                        <div className="card-text description">Oceanic Heights -
+                            <div className="card-text description">Oceanic Heights -
                                 Luxury Seaview Apartment</div>
                             <div className="location" style={{ "font-size": "18px", "fontFamily": "poppins", "marginTop": "10px", "fontWeight": "100" }}>
                                 Bandra West, Mumbai
