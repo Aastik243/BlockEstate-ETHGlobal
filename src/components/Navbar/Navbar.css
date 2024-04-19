@@ -30,9 +30,16 @@ a {
 }
 
 a:hover {
-    color: white;
+    /* background-color: #127782; */
     transition: 100ms;
-    text-decoration: underline;
+    color: #127782;
+    /* color: white;
+    border-radius: 20px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3px;
+    scale: 1.1; */
 }
 
 .nav-route {
