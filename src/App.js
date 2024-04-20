@@ -16,7 +16,7 @@ function App() {
       {/* <Displaycards />
       <Footer /> */}
       {/* <Propertypage /> */}
-      <ListPage/>
+      <ListPage/> 
     </>
   );
 }

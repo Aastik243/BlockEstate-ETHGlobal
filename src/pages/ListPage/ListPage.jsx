@@ -1,56 +1,54 @@
 import React from 'react';
-import { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import {  useState } from "react";
+import {  ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import "./ListPage.css";
 
 const ListPage = () => {
 
-  const propertyindex=0;
+  const [name,setname]=useState("");
+  const [location,setlocation]=useState("");
+  const [price,setprice]=useState("");
+  const [bhk,setbhk]=useState("");
+  const [rent,setrent]=useState("");
+  const [carpet,setcarpet]=useState("");
+  const [contact,setcontact]=useState("");
+  const [description,setdescription]=useState("");
+  const [furnished,setfurnished]=useState(false);
+  var [propertyindex,setpropertyindex]=useState(0);
 
-  const [data, setdata] = useState({
-    property_index : propertyindex,
-    name : "",
-    location : "",
-    price : "",
-    bhk : "",
-    rent : "",
-    carpet : "",
-    contact :"",
-    description : "",
-    furnished : false
-  });
+
+  
   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (data.name === "") {
+    if (name === "") {
       toast.error("Name Is Required");
-    } else if (data.location === "") {
+    } else if (location === "") {
       toast.error("Location Is Required");
-    } else if (data.price === 0) {
+    } else if (price === "") {
       toast.error("Price is Required");
-    } else if (data.bhk === 0) {
+    } else if (bhk === "") {
       toast.error("Number of bedrooms is Required");
-    } else if (data.rent === 0) {
+    } else if (rent === "") {
       toast.error("Rent is Required");
-    } else if (data.carpet === 0) {
+    } else if (carpet === "") {
       toast.error("Carpet-area is Required");
-    } else if (data.contact === 0) {
+    } else if (contact === "") {
       toast.error("Contact Number is Required");
-    } else if (data.description.length > 10) {
+    } else if (description.length < 10) {
       toast.error("Description of property must be more than 10 characters");
     }
-
-    setdata(prevState => ({
-      ...prevState,
-      property_index : propertyindex
-
-    }));
-    propertyindex++;
-
     
+    else{
+
+      setpropertyindex(++propertyindex);
+      toast.success("Your property has been registered");
+
+  }
   }
 
   // convert img
@@ -71,17 +69,26 @@ const ListPage = () => {
     });
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setdata(prevState => ({
-      ...prevState,
-      [name]: value
+  
 
-    }))
-  };
-
+  
+  
 
   return (
+    <>
+    <ToastContainer
+  position="top-right"
+  autoClose={3000}
+  hideProgressBar={false}
+  newestOnTop={false}
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+/>
+
+   
     <div className="wrapper">
 
 
@@ -89,37 +96,40 @@ const ListPage = () => {
       <p>Fill all your property details to list your property to the world of blockchain.</p>
 
 
-      <form>
+      <form onSubmit={handleSubmit}>
       <div className="form1">
         
         <div className="leftform">
         <div><label>Name of Property :</label>
           <input
-            value={data.name}
-            onChange={handleChange} placeholder="Name of property" type="text" />
+            value={name}
+            onChange={(e)=>setname(e.target.value)} placeholder="Name of property" type="text"/>
         </div>
         <div><label>Location of Property :</label>
-          <input value={data.location}
-            onChange={handleChange} placeholder="Location of property" type="text" />
+          <input value={location}
+            onChange={(e)=>setlocation(e.target.value)} placeholder="Location of property" type="text" />
         </div>
         <div><label>Price of Property(in USD) :</label>
-          <input value={data.price}
-            onChange={handleChange} placeholder="Price of property" type="number" />
+          <input value={price}
+            onChange={(e)=>setprice(e.target.value)} placeholder="Price of property" type="number" />
         </div>
         <div><label>Carpet_area(in sq.ft) :</label>
-          <input value={data.carpet}
-            onChange={handleChange} placeholder="Carpet-area of property" type="number" />
+          <input value={carpet}
+            onChange={(e)=>setcarpet(e.target.value)} placeholder="Carpet-area of property" type="number" />
         </div>
         
         <div><label>Number of Bedrooms :</label>
-          <input value={data.bhk}
-            onChange={handleChange} placeholder="Number of bedrooms" type="number" />
+          <input value={bhk}
+            onChange={(e)=>setbhk(e.target.value)} placeholder="Number of bedrooms" type="number" />
         </div>
         
         
-        <div><label>Furnished : </label>
-          <input type="checkbox" /><span>Yes</span>
-          <input type="checkbox" defaultChecked/><span>No</span>
+        <div><label>Furnished(No by defualt) : </label>
+          <input 
+          value={furnished}
+          onClick={(e)=>setfurnished(true)}
+          type="checkbox" /><span>Yes</span>
+        
 
 
         </div>
@@ -127,22 +137,36 @@ const ListPage = () => {
         </div>
         <div className="rightform"> 
         <div><label>Rent Price(in USD) :</label>
-          <input value={data.rent}
-            onChange={handleChange} placeholder="Rent of property(in USD)" type="number" />
+          <input value={rent}
+            onChange={(e)=>setrent(e.target.value)} placeholder="Rent of property(in USD)" type="number" />
         </div>
         
         <div><label>Contact Number :</label>
-          <input value={data.contact}
-            onChange={handleChange} placeholder="Write your contact number" type="number" />
+          <input value={contact}
+            onChange={(e)=>setcontact(e.target.value)} placeholder="Write your contact number" type="number" />
         </div>
         <div><label>Description of Property :</label>
-          <textarea rows="4" columns="100" value={data.description}
-            onChange={handleChange} placeholder="Describe your property(in detail)" type="text" />
+          <textarea rows="4" value={description}
+            onChange={(e)=>setdescription(e.target.value)} placeholder="Describe your property(in detail)" type="text" />
         </div>
         <div className="mb-3">
           <label htmlFor="formFile" className="form-label">
             Upload Photos : 
           </label>
+          <input
+            className="form-control"
+            type="file"
+            onChange={handleImg}
+            name="file"
+            id="formFile"
+          />
+          <input
+            className="form-control"
+            type="file"
+            onChange={handleImg}
+            name="file"
+            id="formFile"
+          />
           <input
             className="form-control"
             type="file"
@@ -156,7 +180,6 @@ const ListPage = () => {
           <button
             type="submit"
             className="form__submit-btn"
-            onClick={handleSubmit}
           >
             Submit
           </button>
@@ -166,7 +189,9 @@ const ListPage = () => {
       </form>
 
     </div>
+    </>
   );
+  
 
 };
 
