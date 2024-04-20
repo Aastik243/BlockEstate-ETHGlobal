@@ -13,11 +13,11 @@ const ListPage = () => {
     property_index : propertyindex,
     name : "",
     location : "",
-    price : 0,
-    bhk : 0,
-    rent : 0,
-    carpet : 0,
-    contact :0,
+    price : "",
+    bhk : "",
+    rent : "",
+    carpet : "",
+    contact :"",
     description : "",
     furnished : false
   });
@@ -83,50 +83,65 @@ const ListPage = () => {
 
   return (
     <div className="wrapper">
-      <h1>Post your Property</h1>
+
+
+      <h3>Sell / Rent Your Property for Free</h3>
+      <p>Fill all your property details to list your property to the world of blockchain.</p>
+
+
       <form>
-        <div>Name
+      <div className="form1">
+        
+        <div className="leftform">
+        <div><label>Name</label>
           <input
             value={data.name}
-            onChange={handleChange} type="text" />
+            onChange={handleChange} placeholder="Name of Property" type="text" />
         </div>
-        <div>Location
+        <div><label>Location</label>
           <input value={data.location}
             onChange={handleChange} type="text" />
         </div>
-        <div>Price
+        <div><label>Price</label>
           <input value={data.price}
             onChange={handleChange} type="number" />
         </div>
-        <div>Carpet_area(in sq.ft)
+        <div><label>Carpet_area(in sq.ft)</label>
           <input value={data.carpet}
             onChange={handleChange} type="number" />
         </div>
-        <div>Number of Bedrooms
+        
+        <div><label>Number of Bedrooms</label>
           <input value={data.bhk}
             onChange={handleChange} type="number" />
         </div>
-        <div>Furnished
+        
+        
+        <div><label>Furnished</label>
           <input type="checkbox" /><span>Yes</span>
           <input type="checkbox" checked /><span>No</span>
 
 
         </div>
-        <div>Rent Price
+
+        </div>
+        <div className="rightform"> 
+        <div><label>Rent Price</label>
           <input value={data.rent}
             onChange={handleChange} type="number" />
         </div>
-        <div>Contact Number
+        
+        <div><label>Contact Number</label>
           <input value={data.contact}
             onChange={handleChange} type="number" />
         </div>
-        <div>Description of Property
-          <input value={data.description}
+        <div><label>Description of Property</label>
+          <textarea rows="4" columns="100" value={data.description}
             onChange={handleChange} type="text" />
         </div>
         <div className="mb-3">
           <label htmlFor="formFile" className="form-label">
-            Default file input example
+            Upload Photos : 
           </label>
           <input
             className="form-control"
@@ -136,7 +151,8 @@ const ListPage = () => {
             id="formFile"
           />
         </div>
-        <div>
+        
+        
           <button
             type="submit"
             className="form__submit-btn"
@@ -144,7 +160,9 @@ const ListPage = () => {
           >
             Submit
           </button>
-        </div>
+          </div>
+          </div>
+          
       </form>
 
     </div>
