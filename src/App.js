@@ -7,6 +7,7 @@ import Displaycards from "./components/Displaycards/Displaycard";
 import Footer from "./components/Footer/Footer";
 import Propertypage from "./components/PropertyPage/Propertypage";
 import ListPage from "./pages/ListPage/ListPage";
+import FeaturedSpace from "./components/FeaturedSpaces/FeaturedSpace";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       {/* <Displaycards />
       <Footer /> */}
       {/* <Propertypage /> */}
-      <ListPage/>
+      {/* <ListPage/> */}
+      <FeaturedSpace/>
     </>
   );
 }
