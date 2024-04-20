@@ -8,9 +8,9 @@ import {
 } from "matchstick-as/assembly/index"
 import { BigInt, Address } from "@graphprotocol/graph-ts"
 import { propertyAdded } from "../generated/schema"
-import { propertyAdded as propertyAddedEvent } from "../generated/PropertyRegistry/PropertyRegistry"
-import { handlepropertyAdded } from "../src/property-registry"
-import { createpropertyAddedEvent } from "./property-registry-utils"
+import { propertyAdded as propertyAddedEvent } from "../generated/RentToOwn/RentToOwn"
+import { handlepropertyAdded } from "../src/rent-to-own"
+import { createpropertyAddedEvent } from "./rent-to-own-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0

@@ -1,6 +1,6 @@
 import { newMockEvent } from "matchstick-as"
 import { ethereum, BigInt, Address } from "@graphprotocol/graph-ts"
-import { propertyAdded } from "../generated/PropertyRegistry/PropertyRegistry"
+import { propertyAdded } from "../generated/RentToOwn/RentToOwn"
 
 export function createpropertyAddedEvent(
   name: string,

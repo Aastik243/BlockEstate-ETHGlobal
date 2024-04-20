@@ -1,4 +1,4 @@
-import { propertyAdded as propertyAddedEvent } from "../generated/PropertyRegistry/PropertyRegistry"
+import { propertyAdded as propertyAddedEvent } from "../generated/RentToOwn/RentToOwn"
 import { propertyAdded } from "../generated/schema"
 
 export function handlepropertyAdded(event: propertyAddedEvent): void {
