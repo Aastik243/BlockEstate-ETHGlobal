@@ -6,6 +6,7 @@ import ConnectWallet from "./components/ConnectWalletButton/ConnectWallet";
 import Displaycards from "./components/Displaycards/Displaycard";
 import Footer from "./components/Footer/Footer";
 import Propertypage from "./components/PropertyPage/Propertypage";
+import ListPage from "./pages/ListPage/ListPage";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       {/* <ConnectWallet /> */}
       {/* <Displaycards />
       <Footer /> */}
-      <Propertypage />
+      {/* <Propertypage /> */}
+      <ListPage/>
     </>
   );
 }
