@@ -15,13 +15,7 @@ root.render(
 );
 
 
-const app = express();
-const port = 3001;
 
-app.use(bodyParser.json());
-
-app.post('/submitFormData', (req, res) => {
-  const formData = req.body;
 
  
 
