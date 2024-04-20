@@ -7,34 +7,60 @@ import "./ListPage.css";
 
 const ListPage = () => {
 
-  const [name, setname] = useState("");
-  const [location, setlocation] = useState("");
-  const [price, setprice] = useState(0);
-  const [bhk, setbhk] = useState(0);
-  const [rent, setrent] = useState(0);
-  const [carpet, setcarpet] = useState(0);
-  const [contact, setcontact] = useState(0);
-  const [description, setdescription] = useState("");
-  const [furnished, setfurnished] = useState(false);
+  const propertyindex=0;
 
-  const handleSubmit = (e) => {
+  const [data, setdata] = useState({
+    property_index : propertyindex,
+    name : "",
+    location : "",
+    price : 0,
+    bhk : 0,
+    rent : 0,
+    carpet : 0,
+    contact :0,
+    description : "",
+    furnished : false
+  });
+  
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name === "") {
+    if (data.name === "") {
       toast.error("Name Is Required");
-    } else if (location === "") {
+    } else if (data.location === "") {
       toast.error("Location Is Required");
-    } else if (price === 0) {
+    } else if (data.price === 0) {
       toast.error("Price is Required");
-    } else if (bhk === 0) {
+    } else if (data.bhk === 0) {
       toast.error("Number of bedrooms is Required");
-    } else if (rent === 0) {
+    } else if (data.rent === 0) {
       toast.error("Rent is Required");
-    } else if (carpet === 0) {
+    } else if (data.carpet === 0) {
       toast.error("Carpet-area is Required");
-    } else if (contact === 0) {
+    } else if (data.contact === 0) {
       toast.error("Contact Number is Required");
-    } else if (description == "") {
-      toast.error("Description of property required");
+    } else if (data.description.length > 10) {
+      toast.error("Description of property must be more than 10 characters");
+    }
+
+    try {
+      const response = await fetch('/submitFormData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form data');
+      }
+
+      // Assuming server responds with a JSON message
+      const data = await response.json();
+      console.log(data.message);
+    } catch (error) {
+      console.error('Error submitting form data:', error.message);
     }
   }
 
@@ -56,6 +82,16 @@ const ListPage = () => {
     });
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+
+    }))
+    propertyindex++;
+  };
+
 
   return (
     <div className="wrapper">
@@ -63,24 +99,24 @@ const ListPage = () => {
       <form>
         <div>Name
           <input
-            value={name}
-            onChange={(e) => setname(e.target.value)} type="text" />
+            value={data.name}
+            onChange={handleChange} type="text" />
         </div>
         <div>Location
-          <input value={location}
-            onChange={(e) => setlocation(e.target.value)} type="text" />
+          <input value={data.location}
+            onChange={handleChange} type="text" />
         </div>
         <div>Price
-          <input value={price}
-            onChange={(e) => setprice(e.target.value)} type="number" />
+          <input value={data.price}
+            onChange={handleChange} type="number" />
         </div>
         <div>Carpet_area(in sq.ft)
-          <input value={carpet}
-            onChange={(e) => setcarpet(e.target.value)} type="number" />
+          <input value={data.carpet}
+            onChange={handleChange} type="number" />
         </div>
         <div>Number of Bedrooms
-          <input value={bhk}
-            onChange={(e) => setbhk(e.target.value)} type="number" />
+          <input value={data.bhk}
+            onChange={handleChange} type="number" />
         </div>
         <div>Furnished
           <input type="checkbox" /><span>Yes</span>
@@ -89,16 +125,16 @@ const ListPage = () => {
 
         </div>
         <div>Rent Price
-          <input value={rent}
-            onChange={(e) => setrent(e.target.value)} type="number" />
+          <input value={data.rent}
+            onChange={handleChange} type="number" />
         </div>
         <div>Contact Number
-          <input value={contact}
-            onChange={(e) => setcontact(e.target.value)} type="number" />
+          <input value={data.contact}
+            onChange={handleChange} type="number" />
         </div>
         <div>Description of Property
-          <input value={description}
-            onChange={(e) => setdescription(e.target.value)} type="text" />
+          <input value={data.description}
+            onChange={handleChange} type="text" />
         </div>
         <div className="mb-3">
           <label htmlFor="formFile" className="form-label">

@@ -342,8 +342,6 @@ return(
         getLastPayment,
         setSPInstance,
         setSchemaId 
-
-
     }}>
         {children}
     </RentToOwnContext.Provider>
