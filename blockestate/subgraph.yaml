@@ -1,0 +1,26 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PropertyRegistry
+    network: sepolia
+    source:
+      address: "0x8c58a77c456e19502a1e5bf6d9c193f2efe3977f"
+      abi: PropertyRegistry
+      startBlock: 5740401
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - propertyAdded
+      abis:
+        - name: PropertyRegistry
+          file: ./abis/PropertyRegistry.json
+      eventHandlers:
+        - event: propertyAdded(string,string,uint256,uint256,uint256,bool,uint256,string[],string[],uint256,uint256,indexed address,bool)
+          handler: handlepropertyAdded
+      file: ./src/property-registry.ts

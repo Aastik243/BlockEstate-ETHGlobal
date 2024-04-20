@@ -392,30 +392,30 @@ export const RentToOwnProvider = ({ children }) => {
 
 
 
-return(
-    <RentToOwnContext.Provider 
-    value={{
-        registerProperty,
-        fetchPropertyById,
-        getPropertyCount,
-        rentProperty,
-        approveTenant,
-        payRent,
-        adjustRent,
-        cancelAgreement,
-        landlordCancelAgreement,
-        checkPaymentDue,
-        getTenant,
-        getTotalPaid,
-        getNumberOfPayments,
-        getLastPayment,
-        setSPInstance,
-        setSchemaId 
-    }}>
+return (
+    <RentToOwnContext.Provider
+        value={{
+            registerProperty,
+            fetchPropertyById,
+            getPropertyCount,
+            rentProperty,
+            approveTenant,
+            payRent,
+            adjustRent,
+            cancelAgreement,
+            landlordCancelAgreement,
+            checkPaymentDue,
+            getTenant,
+            getTotalPaid,
+            getNumberOfPayments,
+            getLastPayment,
+            setSPInstance,
+            setSchemaId
+        }}>
         {children}
     </RentToOwnContext.Provider>
 );
-  };
+
 
 
 

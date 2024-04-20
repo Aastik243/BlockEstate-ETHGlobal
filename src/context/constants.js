@@ -1,5 +1,5 @@
-import propertyRegistry from '../../contracts/out/propertyRegistry.sol/PropertyRegistry.json'
-import Purchasing from '../../contracts/out/Purchasing.sol/Purchasing.json'
+import propertyRegistry from '../../contracts/out/PropertyRegistry.json'
+import Purchasing from '../../contracts/out/Purchasing.json'
 
 
 export const PurchasingAddress = 0xedD8b8f58f899d214Cf23417bc982E1dA2C2AC86;

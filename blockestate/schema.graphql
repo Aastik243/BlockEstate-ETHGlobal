@@ -1,0 +1,19 @@
+type propertyAdded @entity(immutable: true) {
+  id: Bytes!
+  name: String! # string
+  location: String! # string
+  price: BigInt! # uint256
+  carpet_area: BigInt! # uint256
+  bhk: BigInt! # uint256
+  furnished: Boolean! # bool
+  rent: BigInt! # uint256
+  amenities: [String!]! # string[]
+  images: [String!]! # string[]
+  owner_contact: BigInt! # uint256
+  propertyindex: BigInt! # uint256
+  owner: Bytes! # address
+  owned: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
