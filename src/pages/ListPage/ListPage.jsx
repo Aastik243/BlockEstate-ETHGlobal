@@ -93,51 +93,51 @@ const ListPage = () => {
       <div className="form1">
         
         <div className="leftform">
-        <div><label>Name</label>
+        <div><label>Name of Property :</label>
           <input
             value={data.name}
-            onChange={handleChange} placeholder="Name of Property" type="text" />
+            onChange={handleChange} placeholder="Name of property" type="text" />
         </div>
-        <div><label>Location</label>
+        <div><label>Location of Property :</label>
           <input value={data.location}
-            onChange={handleChange} type="text" />
+            onChange={handleChange} placeholder="Location of property" type="text" />
         </div>
-        <div><label>Price</label>
+        <div><label>Price of Property(in USD) :</label>
           <input value={data.price}
-            onChange={handleChange} type="number" />
+            onChange={handleChange} placeholder="Price of property" type="number" />
         </div>
-        <div><label>Carpet_area(in sq.ft)</label>
+        <div><label>Carpet_area(in sq.ft) :</label>
           <input value={data.carpet}
-            onChange={handleChange} type="number" />
+            onChange={handleChange} placeholder="Carpet-area of property" type="number" />
         </div>
         
-        <div><label>Number of Bedrooms</label>
+        <div><label>Number of Bedrooms :</label>
           <input value={data.bhk}
-            onChange={handleChange} type="number" />
+            onChange={handleChange} placeholder="Number of bedrooms" type="number" />
         </div>
         
         
-        <div><label>Furnished</label>
+        <div><label>Furnished : </label>
           <input type="checkbox" /><span>Yes</span>
-          <input type="checkbox" checked /><span>No</span>
+          <input type="checkbox" defaultChecked/><span>No</span>
 
 
         </div>
 
         </div>
         <div className="rightform"> 
-        <div><label>Rent Price</label>
+        <div><label>Rent Price(in USD) :</label>
           <input value={data.rent}
-            onChange={handleChange} type="number" />
+            onChange={handleChange} placeholder="Rent of property(in USD)" type="number" />
         </div>
         
-        <div><label>Contact Number</label>
+        <div><label>Contact Number :</label>
           <input value={data.contact}
-            onChange={handleChange} type="number" />
+            onChange={handleChange} placeholder="Write your contact number" type="number" />
         </div>
-        <div><label>Description of Property</label>
+        <div><label>Description of Property :</label>
           <textarea rows="4" columns="100" value={data.description}
-            onChange={handleChange} type="text" />
+            onChange={handleChange} placeholder="Describe your property(in detail)" type="text" />
         </div>
         <div className="mb-3">
           <label htmlFor="formFile" className="form-label">
