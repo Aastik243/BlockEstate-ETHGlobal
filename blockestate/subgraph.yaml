@@ -8,9 +8,9 @@ dataSources:
     name: PropertyRegistry
     network: sepolia
     source:
-      address: "0x8c58a77c456e19502a1e5bf6d9c193f2efe3977f"
+      address: "0x77dae173a6C655D37Ed5bf59eC1ea6717279530e"
       abi: PropertyRegistry
-      startBlock: 5740401
+      startBlock: 5716508
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
