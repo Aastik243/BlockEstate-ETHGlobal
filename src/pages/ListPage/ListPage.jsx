@@ -43,6 +43,13 @@ const ListPage = () => {
       toast.error("Description of property must be more than 10 characters");
     }
 
+    setdata(prevState => ({
+      ...prevState,
+      property_index : propertyindex
+
+    }));
+    propertyindex++;
+
     
   }
 
@@ -71,7 +78,6 @@ const ListPage = () => {
       [name]: value
 
     }))
-    propertyindex++;
   };
 
 
