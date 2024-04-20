@@ -43,25 +43,7 @@ const ListPage = () => {
       toast.error("Description of property must be more than 10 characters");
     }
 
-    try {
-      const response = await fetch('/submitFormData', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit form data');
-      }
-
-      // Assuming server responds with a JSON message
-      const data = await response.json();
-      console.log(data.message);
-    } catch (error) {
-      console.error('Error submitting form data:', error.message);
-    }
+    
   }
 
   // convert img
@@ -84,7 +66,7 @@ const ListPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setdata(prevState => ({
       ...prevState,
       [name]: value
 
