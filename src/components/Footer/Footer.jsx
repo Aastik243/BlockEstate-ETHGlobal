@@ -1,5 +1,6 @@
 import React from 'react'
 import './Footer.css'
+import { BlockEstateLogo } from '../../assets/BlockEstateLogo.jpg'
 const Footer = () => {
     return (
         <>
@@ -7,7 +8,7 @@ const Footer = () => {
                 <footer className="footer row row-cols-5 py-5 border-top" >
                     <div className="col">
                         <a href="/" className="d-flex align-items-center mb-3 link-dark text-decoration-none">
-                            Logo Comes Here
+                            <img src={BlockEstateLogo} alt="" />
                             <svg className="bi me-2" width="40" height="32"><use href="#bootstrap"></use></svg>
                         </a>
                         <p className="">© 2024</p>
