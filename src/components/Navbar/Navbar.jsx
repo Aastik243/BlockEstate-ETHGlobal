@@ -8,7 +8,7 @@ const Navbar = () => {
 
     const { checkIfWalletConnected, currentAccount } = useAuth();
 
-
+    const navigate = useNavigate();
     return (
         <>
             <div className="navbar">
@@ -18,8 +18,9 @@ const Navbar = () => {
                     </div>
                     <div className="navbar__menu d-flex">
                         <div className="nav-route-parent d-flex">
-                            <a href="/"><div className='nav-route d-flex'>List</div></a>
+                            <a href="/Listpage"><div className='nav-route d-flex' onClick={navigate('/Listpage')}>List</div></a>
                             <a href="/about"><div className='nav-route d-flex'>Rent</div></a>
+                            <a href="/Propertydashboard"><div className='nav-route d-flex' onClick={navigate('/PropertyDashboard')} >Dashboard</div></a>
                         </div>
                         <div className="navbar__button">
                             <ConnectWallet />
