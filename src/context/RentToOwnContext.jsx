@@ -102,9 +102,35 @@ export const RentToOwnProvider = ({ children }) => {
     const fetchPropertyById = async (propertyIndex) => {
         try {
             const contract = await connectingWithPropertyRegistry();
-            const propertyDetails = await contract.methods.getProperty(propertyIndex).call();
+            const { name,
+                location,
+                price,
+                carpet_area,
+                bhk,
+                furnished,
+                rent,
+                amenities,
+                images,
+                owner_contact,
+                propertyindex,
+                owner,
+                owned } = await contract.methods.getProperty(propertyIndex).call();
             console.log('Property Details:', propertyDetails);
-            return propertyDetails;
+            return {
+                name,
+                location,
+                price,
+                carpet_area,
+                bhk,
+                furnished,
+                rent,
+                amenities,
+                images,
+                owner_contact,
+                propertyindex,
+                owner,
+                owned
+            };
         } catch (error) {
             console.error('Error:', error);
         }

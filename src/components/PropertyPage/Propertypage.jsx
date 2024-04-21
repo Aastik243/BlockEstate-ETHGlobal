@@ -18,14 +18,43 @@ const Propertypage = () => {
         amenities: [],
         images: [],
         owner_contact: 0,
-        owner_address: ''
+        owner_address: '',
+        propertyindex: 0,
+        owned: false
 
 
     })
     const fetchProperty = useCallback(async () => {
         const propertyid = window.location.pathname.split('/')[2]
-        const details = await fetchPropertyById(propertyid);
-        setpropertydetails(details);
+        const { name,
+            location,
+            price,
+            carpet_area,
+            bhk,
+            furnished,
+            rent,
+            amenities,
+            images,
+            owner_contact,
+            propertyindex,
+            owner,
+            owned } = await fetchPropertyById(propertyid);
+        setpropertydetails({
+            name: name,
+            location: location,
+            price: price,
+            carpet_area: carpet_area,
+            bhk: bhk,
+            furnished: furnished,
+            rent: rent,
+            amenities: amenities,
+            images: images,
+            owner_contact: owner_contact,
+            owner_address: owner,
+            propertyindex: propertyindex,
+            owned: owned
+        });
+
     }, [])
     useEffect(() => {
         if (!currentAccount) return;

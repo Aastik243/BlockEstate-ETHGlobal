@@ -10,12 +10,13 @@ import ListPage from "./pages/ListPage/ListPage";
 import FeaturedSpace from "./components/FeaturedSpaces/FeaturedSpace";
 import HomePage from "./pages/HomePage/HomePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import PropertyDashboard from "./components/Propertydashboard/PropertyDashboard";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <FeaturedSpace />,
+      element: <HomePage />,
     },
     {
       path: "/PropertyDetails/:id",
@@ -25,7 +26,10 @@ function App() {
       path: "/ListPage",
       element: <ListPage />,
     },
-    {},
+    {
+      path: "/PropertyDashboard",
+      element: <PropertyDashboard />,
+    },
   ]);
   return (
     <>
