@@ -1,23 +1,50 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import propertyimage from '../../assets/propertyimage.jpg'
 import propertyimage2 from '../../assets/propertyimage2.jpg'
 import './PropertyPage.css'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
+import { fetchPropertyById } from '../../context/RentToOwnContext'
+import { currentAccount } from '../../context/AuthContext'
 const Propertypage = () => {
+    const [propertydetails, setpropertydetails] = useState({
+        name: '',
+        location: '',
+        price: 0,
+        carpet_area: 0,
+        bhk: 0,
+        furnished: false,
+        rent: 0,
+        amenities: [],
+        images: [],
+        owner_contact: 0,
+        owner_address: ''
+
+
+    })
+    const fetchProperty = useCallback(async () => {
+        const propertyid = window.location.pathname.split('/')[2]
+        const details = await fetchPropertyById(propertyid);
+        setpropertydetails(details);
+    }, [])
+    useEffect(() => {
+        if (!currentAccount) return;
+        fetchProperty()
+    }, [fetchProperty])
+    const { name, location, price, carpet_area, bhk, furnished, rent, amenities, images, owner_contact, owner_address } = propertydetails;
     return (
         <>
             <Navbar />
             <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     <div className="carousel-item active">
-                        <img src={propertyimage} className="d-block " alt="..." />
+                        <img src={images[0]} className="d-block " alt="..." />
                     </div>
                     <div className="carousel-item">
-                        <img src={propertyimage} className="d-block " alt="..." />
+                        <img src={images[1]} className="d-block " alt="..." />
                     </div>
                     <div className="carousel-item">
-                        <img src={propertyimage} className="d-block " alt="..." />
+                        <img src={images[2]} className="d-block " alt="..." />
                     </div>
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -30,29 +57,28 @@ const Propertypage = () => {
                 </button>
             </div>
             <div className="property-specs d-flex">
-                Oceanic Heights -
-                Luxury Seaview Apartment
+                {name}
             </div>
             <div className="property-specs-2 d-flex justify-content-between">
                 <div className="spec">
                     <span>
                         Price
                     </span><br />
-                    4,50,00,000
+                    {price}
                 </div>
                 <div className="spec">
                     <span>
                         BHK
                     </span>
                     <br />
-                    3
+                    {bhk}
                 </div>
                 <div className="spec">
                     <span>
                         Carpet Area
                     </span>
                     <br />
-                    1800 Sqft.
+                    {carpet_area} Sqft.
                 </div>
             </div>
             <div className="txt">
@@ -60,12 +86,7 @@ const Propertypage = () => {
             </div>
             <div className="property-info d-flex justify-content-between">
                 <div className="property-about">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique quo illum impedit optio dignissimos, aperiam dolor, molestias itaque nemo labore aliquam facere quasi. Ullam eligendi quas, excepturi modi recusandae hic.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore obcaecati exercitationem consequatur hic non rem tenetur, architecto labore id accusantium mollitia! Eveniet neque adipisci excepturi autem vero nihil cum laudantium?
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta eius, obcaecati enim, explicabo autem ab maxime exercitationem, voluptates quas dolor nesciunt labore accusamus. Optio velit harum pariatur quos illo. Recusandae?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut, cum quo officiis in nisi odit nemo dolores quidem vero porro cupiditate, necessitatibus velit rerum aspernatur, nobis accusantium non incidunt?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad dolore distinctio placeat, aliquam voluptatum ex eos quibusdam error minima. Eos voluptates temporibus consequuntur mollitia velit sunt non ipsum odit quasi?
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. A iste eos molestias odit ex unde culpa accusantium accusamus quis, ad deserunt harum modi. Quibusdam reiciendis ad voluptates pariatur, itaque accusamus?
+                    {amenities}
                 </div>
                 <div className="property-detail">
                     <div className="characteristics">
@@ -74,10 +95,10 @@ const Propertypage = () => {
                         </div>
                         <div className="characteristics-list">
                             <ul>
-                                <li><span>Location:</span> Mumbai</li>
-                                <li><span>Furnished:</span> yes</li>
-                                <li><span>BHK:</span> 3 BHK</li>
-                                <li><span>Carpet Area:</span> 1800 Sqft</li>
+                                <li><span>Location:</span> {location}</li>
+                                <li><span>Furnished:</span> {(furnished) ? Yes : No} </li>
+                                <li><span>BHK:</span> {bhk} BHK</li>
+                                <li><span>Carpet Area:</span> {carpet_area} Sqft</li>
 
                             </ul>
                         </div>
@@ -88,8 +109,8 @@ const Propertypage = () => {
                         </div>
                         <div className="owner-info">
                             <ul>
-                                <li><span>address:</span> 0x506AEAc5e343F007C231091323b276FA989e9C61</li>
-                                <li><span>Phone:</span> 1234567890</li>
+                                <li><span>address:</span> {owner_address.slice(0, 6)} ... {owner_address.slice(36)} </li>
+                                <li><span>Phone:</span> {owner_contact} </li>
 
                             </ul>
                         </div>

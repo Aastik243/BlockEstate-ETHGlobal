@@ -8,17 +8,34 @@ import Footer from "./components/Footer/Footer";
 import Propertypage from "./components/PropertyPage/Propertypage";
 import ListPage from "./pages/ListPage/ListPage";
 import FeaturedSpace from "./components/FeaturedSpaces/FeaturedSpace";
+import HomePage from "./pages/HomePage/HomePage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <FeaturedSpace />,
+    },
+    {
+      path: "/PropertyDetails/:id",
+      element: <Propertypage />,
+    },
+    {
+      path: "/ListPage",
+      element: <ListPage />,
+    },
+    {},
+  ]);
   return (
     <>
       {/* <Navbar />
       {/* <ConnectWallet /> */}
       {/* <Displaycards />
       <Footer /> */}
-      {/* <Propertypage /> */}
+      <Propertypage />
       {/* <ListPage/> */}
-      <FeaturedSpace/>
+      {/* <FeaturedSpace/> */}
     </>
   );
 }
