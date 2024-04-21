@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react'
 import './FeaturedSpace.css'
 import Displaycards from '../Displaycards/Displaycard'
-const properties = [1, 2, 3, 4, 5, 6]
+import { useRentToOwnContext } from '../../context/RentToOwnContext'
 
 const FeaturedSpace = () => {
-
+    const { getAllProperties } = useRentToOwnContext()
     return (
         <div className='container container-fluid' >
             <div className="head-text-featurespace d-flex" style={{ "justify-content": "center" }} >
                 Featured Space
             </div>
             <div className="properties d-flex">
-                <Displaycards />
-                <Displaycards />
-                <Displaycards />
-                <Displaycards />
-                <Displaycards />
-                <Displaycards />
+                {getAllProperties.map((property, _) => {
+                    return (
+                        <Displaycards key={property.property_index} property={property} />
+                    )
+                }
+                )}
 
 
 
