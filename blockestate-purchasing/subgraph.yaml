@@ -1,0 +1,29 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: RentToOwn
+    network: sepolia
+    source:
+      address: "0xb900865f8c16fa7427760489148311b3d9a152cc"
+      abi: RentToOwn
+      startBlock: 5741406
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PaymentMade
+        - propertyAdded
+      abis:
+        - name: RentToOwn
+          file: ./abis/RentToOwn.json
+      eventHandlers:
+        - event: PaymentMade(address,uint256)
+          handler: handlePaymentMade
+        - event: propertyAdded(string,string,uint256,uint256,uint256,bool,uint256,string[],string[],uint256,uint256,indexed address,bool)
+          handler: handlepropertyAdded
+      file: ./src/rent-to-own.ts

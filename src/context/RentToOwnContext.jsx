@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { ethers } from "ethers";
 import Wenb3Model from "web3modal";
 
+
 import {
     activeChainId,
     PurchasingABI,
@@ -25,7 +26,7 @@ export const useRentToOwnContext = () => useContext(RentToOwnContext);
 
 export const RentToOwnProvider = ({ children }) => {
     const { currentAccount } = useAuth();
-
+    const APIURL = "https://api.studio.thegraph.com/query/72175/blockestate-propertyregistry/v0.2"
     const connectingWithSmartContract = async () => {
         try {
             const web3Modal = new Wenb3Model();
@@ -119,6 +120,32 @@ export const RentToOwnProvider = ({ children }) => {
             console.error('Error:', error);
         }
     };
+    const getAllProperties = async () => {
+        const query = `
+        {
+            propertyAddeds(first: 6){
+              name
+              bhk
+              location
+              carpet_area
+              propertyindex
+            }
+          }
+        `
+        const client = new ApolloClient({
+            uri: APIURL,
+            cache: new InMemoryCache(),
+        });
+
+        const res = await client.query({ query: gql(query) });
+        console.log(res.data.propertyAddeds);
+        if (res.data.propertyAddeds) {
+            return res.data.propertyAddeds;
+        } else {
+            return [];
+        }
+
+    }
 
     // Function to rent a property
     const rentProperty = async (propertyIndex, numberOfYears, buyIntention) => {
@@ -171,7 +198,7 @@ export const RentToOwnProvider = ({ children }) => {
 
             // Call the payRent function on the contract
             const transaction = await contract.methods.payRent(propertyIndex).send({ from: currentAccount, value: amount });
-
+            const receipt = await transaction.wait();
             console.log('Transaction hash:', transaction.transactionHash);
             console.log('Rent paid successfully!');
             return receipt;
@@ -380,6 +407,7 @@ export const RentToOwnProvider = ({ children }) => {
                 getTotalPaid,
                 getNumberOfPayments,
                 getLastPayment,
+                getAllProperties,
                 setSPInstance,
                 setSchemaId
 
@@ -392,30 +420,6 @@ export const RentToOwnProvider = ({ children }) => {
 
 
 
-return(
-    <RentToOwnContext.Provider 
-    value={{
-        registerProperty,
-        fetchPropertyById,
-        getPropertyCount,
-        rentProperty,
-        approveTenant,
-        payRent,
-        adjustRent,
-        cancelAgreement,
-        landlordCancelAgreement,
-        checkPaymentDue,
-        getTenant,
-        getTotalPaid,
-        getNumberOfPayments,
-        getLastPayment,
-        setSPInstance,
-        setSchemaId 
-    }}>
-        {children}
-    </RentToOwnContext.Provider>
-);
-  };
 
 
 

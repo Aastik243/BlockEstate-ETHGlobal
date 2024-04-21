@@ -1,15 +1,13 @@
-import propertyRegistry from '../../contracts/out/propertyRegistry.sol/PropertyRegistry.json'
-import Purchasing from '../../contracts/out/Purchasing.sol/Purchasing.json'
+import propertyRegistry from "../../contracts/out/PropertyRegistry.json";
+import Purchasing from "../../contracts/out/Purchasing.json";
 
-
-export const PurchasingAddress = 0xedD8b8f58f899d214Cf23417bc982E1dA2C2AC86;
-export const propertyRegistryAddress = 0x77dae173a6C655D37Ed5bf59eC1ea6717279530e;
+export const PurchasingAddress = 0xb900865f8c16fa7427760489148311b3d9a152cc;
+export const propertyRegistryAddress = 0x193be412d660045587f21293ac2b5715290d7dde;
 export const propertyRegistryABI = propertyRegistry.abi;
 export const PurchasingABI = Purchasing.abi;
 
 export const ChainId = {
-    Mainnet:1,
-    Sepolia:11155111,
-    opavailsepolia:202402021700,
-}
-       
+  Mainnet: 1,
+  Sepolia: 11155111,
+  opavailsepolia: 202402021700,
+};
