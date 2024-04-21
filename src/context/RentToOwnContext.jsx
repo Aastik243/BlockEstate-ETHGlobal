@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ethers } from "ethers";
-import Wenb3Model from "web3modal";
+// import Wenb3Model from "web3modal";
+import { JsonRpcProvider } from "ethers/providers";
+import {createClient} from "urql/core";
+// import { useAuth } from "./AuthContext";
+
 
 
 import {
@@ -12,7 +16,9 @@ import {
 } from "./constants.js";
 import { useAuth } from "./AuthContext";
 // import axios from "axios";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+// import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+
+
 
 const fetchContract = (signerOrProvider) =>
     new ethers.Contract(PurchasingAddress, PurchasingABI, signerOrProvider);
@@ -26,12 +32,16 @@ export const useRentToOwnContext = () => useContext(RentToOwnContext);
 
 export const RentToOwnProvider = ({ children }) => {
     const { currentAccount } = useAuth();
-    const APIURL = "https://api.studio.thegraph.com/query/72175/blockestate-propertyregistry/v0.2"
+
+   
+
+    
     const connectingWithSmartContract = async () => {
         try {
-            const web3Modal = new Wenb3Model();
-            const connection = await web3Modal.connect();
-            const provider = new ethers.providers.Web3Provider(connection);
+            // const web3Modal = new Wenb3Model();
+            // const connection = await web3Modal.connect();
+            // const provider = new ethers.providers.Web3Provider(connection);
+            const provider = new JsonRpcProvider();
             const signer = provider.getSigner();
             console.log(signer)
             const contract = fetchContract(signer);
@@ -43,9 +53,10 @@ export const RentToOwnProvider = ({ children }) => {
     };
     const connectingWithPropertyRegistry = async () => {
         try {
-            const web3Modal = new Wenb3Model();
-            const connection = await web3Modal.connect();
-            const provider = new ethers.providers.Web3Provider(connection);
+            // const web3Modal = new Wenb3Model;
+            // const connection = await web3Modal.connect();
+            // const provider = new ethers.providers.Web3Provider(connection);
+            const provider = new JsonRpcProvider();
             const signer = provider.getSigner();
             console.log(signer)
             const contract = fetchContract1(signer);
@@ -70,8 +81,7 @@ export const RentToOwnProvider = ({ children }) => {
     ) => {
         try {
             const contract = await connectingWithPropertyRegistry();
-            const accounts = await web3.eth.getAccounts();
-            const account = accounts[0]; // Assuming the user's account is the first one
+            const account = currentAccount; // Assuming the user's account is the first one
 
             const transaction = await contract.methods.registerProperty(
                 name,
@@ -120,40 +130,14 @@ export const RentToOwnProvider = ({ children }) => {
             console.error('Error:', error);
         }
     };
-    const getAllProperties = async () => {
-        const query = `
-        {
-            propertyAddeds(first: 6){
-              name
-              bhk
-              location
-              carpet_area
-              propertyindex
-            }
-          }
-        `
-        const client = new ApolloClient({
-            uri: APIURL,
-            cache: new InMemoryCache(),
-        });
-
-        const res = await client.query({ query: gql(query) });
-        console.log(res.data.propertyAddeds);
-        if (res.data.propertyAddeds) {
-            return res.data.propertyAddeds;
-        } else {
-            return [];
-        }
-
-    }
+    
 
     // Function to rent a property
     const rentProperty = async (propertyIndex, numberOfYears, buyIntention) => {
         try {
             const contract = await connectingWithSmartContract();
 
-            const accounts = await web3.eth.getAccounts();
-            const currentAccount = accounts[0]; // Assuming the user's account is the first one
+            const accounts = currentAccount;
 
             // Call the RentProperty function on the contract
             const transaction = await contract.methods.RentProperty(propertyIndex, numberOfYears, buyIntention).send({ from: currentAccount });
@@ -171,8 +155,7 @@ export const RentToOwnProvider = ({ children }) => {
         try {
             const contract = await connectingWithSmartContract();
 
-            const accounts = await web3.eth.getAccounts();
-            const currentAccount = accounts[0]; // Assuming the user's account is the first one
+            const accounts = currentAccount;
 
             // Call the ApproveTenant function on the contract
             const transaction = await contract.methods.ApproveTenant(propertyIndex, tenantAddress).send({ from: currentAccount });
@@ -193,8 +176,7 @@ export const RentToOwnProvider = ({ children }) => {
         try {
             const contract = await connectingWithSmartContract();
 
-            const accounts = await web3.eth.getAccounts();
-            const currentAccount = accounts[0]; // Assuming the user's account is the first one
+            const accounts = currentAccount;
 
             // Call the payRent function on the contract
             const transaction = await contract.methods.payRent(propertyIndex).send({ from: currentAccount, value: amount });
@@ -212,8 +194,7 @@ export const RentToOwnProvider = ({ children }) => {
         try {
             const contract = await connectingWithSmartContract();
 
-            const accounts = await web3.eth.getAccounts();
-            const currentAccount = accounts[0]; // Assuming the user's account is the first one
+            const accounts = currentAccount;
 
             // Call the adjustRent function on the contract
             const transaction = await contract.methods.adjustRent(newRentAmount, propertyIndex).send({ from: currentAccount });
@@ -230,8 +211,7 @@ export const RentToOwnProvider = ({ children }) => {
         try {
             const contract = await connectingWithSmartContract();
 
-            const accounts = await web3.eth.getAccounts();
-            const currentAccount = accounts[0]; // Assuming the user's account is the first one
+            const accounts = currentAccount;
 
             // Call the cancelAgreement function on the contract
             const transaction = await contract.methods.cancelAgreement(propertyIndex).send({ from: currentAccount });
@@ -248,8 +228,7 @@ export const RentToOwnProvider = ({ children }) => {
         try {
             const contract = await connectingWithSmartContract();
 
-            const accounts = await web3.eth.getAccounts();
-            const currentAccount = accounts[0]; // Assuming the user's account is the first one
+            const accounts = currentAccount;
 
             // Call the landlordCancelAgreement function on the contract
             const transaction = await contract.methods.landlordCancelAgreement(propertyIndex).send({ from: currentAccount });
@@ -341,7 +320,7 @@ export const RentToOwnProvider = ({ children }) => {
         try {
             const contract = await connectingWithSmartContract();
 
-            const accounts = await web3.eth.getAccounts();
+            const accounts = currentAccount;
             const currentAccount = accounts[0]; // Assuming the owner's account is the first one
 
             // Check if the caller is the owner
@@ -368,7 +347,7 @@ export const RentToOwnProvider = ({ children }) => {
         try {
             const contract = await connectingWithSmartContract();
 
-            const accounts = await web3.eth.getAccounts();
+            const accounts = currentAccount;
             const currentAccount = accounts[0]; // Assuming the owner's account is the first one
 
             // Check if the caller is the owner
@@ -407,7 +386,7 @@ export const RentToOwnProvider = ({ children }) => {
                 getTotalPaid,
                 getNumberOfPayments,
                 getLastPayment,
-                getAllProperties,
+               // getAllProperties,
                 setSPInstance,
                 setSchemaId
 

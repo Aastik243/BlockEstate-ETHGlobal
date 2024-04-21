@@ -8,23 +8,6 @@ import "./ListPage.css";
 
 const ListPage = () => {
 
-
-  const propertyindex = 0;
-
-  const [data, setdata] = useState({
-    property_index: propertyindex,
-    name: "",
-    location: "",
-    price: 0,
-    bhk: 0,
-    rent: 0,
-    carpet: 0,
-    contact: 0,
-    description: "",
-    furnished: false
-  });
-
-
   const [name,setname]=useState("");
   const [location,setlocation]=useState("");
   const [price,setprice]=useState("");
@@ -39,7 +22,6 @@ const ListPage = () => {
 
   
   
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,20 +45,10 @@ const ListPage = () => {
     
     else{
 
-
-    setdata(prevState => ({
-      ...prevState,
-      property_index: propertyindex
-
-    }));
-    propertyindex++;
-
-
-
       setpropertyindex(++propertyindex);
       toast.success("Your property has been registered");
 
-
+  }
   }
 
   // convert img

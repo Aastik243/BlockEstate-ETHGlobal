@@ -8,7 +8,7 @@ import Footer from "./components/Footer/Footer";
 import Propertypage from "./components/PropertyPage/Propertypage";
 import ListPage from "./pages/ListPage/ListPage";
 import FeaturedSpace from "./components/FeaturedSpaces/FeaturedSpace";
-import HomePage from "./pages/HomePage/HomePage";
+import HomePage from "./pages/Homepage/HomePage"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -29,17 +29,7 @@ function App() {
   ]);
   return (
     <>
-      {/* <Navbar />
-      {/* <ConnectWallet /> */}
-      {/* <Displaycards />
-      <Footer /> */}
-
-      <Propertypage />
-      {/* <ListPage/> */}
-      {/* <FeaturedSpace/> */}
-
-      {/* <Propertypage /> */}
-      <ListPage/> 
+      <RouterProvider router={router}></RouterProvider>
 
     </>
   );

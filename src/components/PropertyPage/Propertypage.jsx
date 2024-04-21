@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import propertyimage from '../../assets/propertyimage.jpg'
 import propertyimage2 from '../../assets/propertyimage2.jpg'
 import './PropertyPage.css'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
-import { fetchPropertyById } from '../../context/RentToOwnContext'
-import { currentAccount } from '../../context/AuthContext'
+import { useRentToOwnContext } from '../../context/RentToOwnContext'
+import { useAuth } from '../../context/AuthContext'
 const Propertypage = () => {
     const [propertydetails, setpropertydetails] = useState({
         name: '',
@@ -22,6 +22,9 @@ const Propertypage = () => {
 
 
     })
+    const currentAccount = useAuth();
+
+    const {fetchPropertyById} = useRentToOwnContext();
     const fetchProperty = useCallback(async () => {
         const propertyid = window.location.pathname.split('/')[2]
         const details = await fetchPropertyById(propertyid);
@@ -96,7 +99,7 @@ const Propertypage = () => {
                         <div className="characteristics-list">
                             <ul>
                                 <li><span>Location:</span> {location}</li>
-                                <li><span>Furnished:</span> {(furnished) ? Yes : No} </li>
+                                <li><span>Furnished:</span> {(furnished) ? "Yes" : "No"} </li>
                                 <li><span>BHK:</span> {bhk} BHK</li>
                                 <li><span>Carpet Area:</span> {carpet_area} Sqft</li>
 
