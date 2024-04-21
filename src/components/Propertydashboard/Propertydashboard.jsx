@@ -108,6 +108,9 @@ const PropertyDashboard = () => {
                                 <div className="totalpaid">
                                     Total Paid: {getTotalPaid(property.propertyindex)}
                                 </div>
+                                <div className="getattestation">
+                                    <button className="btn btn-primary" onClick={HandleAttestation()}>Get Attestation</button>
+                                </div>
 
                             </div>
                         </>
