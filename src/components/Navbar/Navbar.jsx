@@ -3,8 +3,9 @@ import './Navbar.css'
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ConnectWallet from '../ConnectWalletButton/ConnectWallet';
-
+import { BlockEstateLogo } from '../../assets/BlockEstateLogo.jpg';
 const Navbar = () => {
+
 
     const { checkIfWalletConnected, currentAccount } = useAuth();
 
@@ -14,7 +15,7 @@ const Navbar = () => {
             <div className="navbar">
                 <div className="navbar__container d-flex">
                     <div className="navbar__logo">
-                        Navbar
+                        <img src={BlockEstateLogo} alt="" />
                     </div>
                     <div className="navbar__menu d-flex">
                         <div className="nav-route-parent d-flex">
