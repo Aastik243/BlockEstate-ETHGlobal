@@ -33,9 +33,14 @@ function App() {
       {/* <ConnectWallet /> */}
       {/* <Displaycards />
       <Footer /> */}
+
       <Propertypage />
       {/* <ListPage/> */}
       {/* <FeaturedSpace/> */}
+
+      {/* <Propertypage /> */}
+      <ListPage/> 
+
     </>
   );
 }
